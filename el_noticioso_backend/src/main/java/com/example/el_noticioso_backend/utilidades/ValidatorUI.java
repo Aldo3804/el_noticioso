@@ -1,4 +1,4 @@
-package com.example.el_noticioso_backend.validaciones;
+package com.example.el_noticioso_backend.utilidades;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

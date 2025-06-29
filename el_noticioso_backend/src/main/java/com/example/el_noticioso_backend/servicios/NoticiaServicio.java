@@ -17,4 +17,5 @@ public interface NoticiaServicio {
 
     List<NoticiaDTO> mostrarInicio();
 
+    Integer obtenerIdNoticia(String titulo);
 }

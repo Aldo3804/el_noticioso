@@ -25,6 +25,4 @@ public class Favorito {
     @JoinColumn(name = "id_noticia", nullable = false)
     private Noticia noticia;
 
-    @Column(name = "fecha_guardado", nullable = false)
-    private LocalDate fechaGuardado;
 }

@@ -13,14 +13,16 @@ import java.util.List;
 public interface NoticiaJPA extends JpaRepository<Noticia,Integer> {
 
 
-    @Query("select new com.example.el_noticioso_backend.dto.NoticiaDTO(n.titulo,n.resumen,n.fechaPublicacion,n.imagenUrl,n.autor) from Noticia n")
+    @Query("select new com.example.el_noticioso_backend.dto.NoticiaDTO(n.idNoticia,n.titulo,n.resumen,n.fechaPublicacion,n.imagenUrl,n.autor) from Noticia n")
     List<NoticiaDTO> listarNoticias();
 
-    @Query("select new com.example.el_noticioso_backend.dto.NoticiaDTO(n.titulo,n.resumen,n.fechaPublicacion,n.imagenUrl,n.autor) from Noticia n where n.localia= :localia")
+    @Query("select new com.example.el_noticioso_backend.dto.NoticiaDTO(n.idNoticia,n.titulo,n.resumen,n.fechaPublicacion,n.imagenUrl,n.autor) from Noticia n where n.localia= :localia")
     List<NoticiaDTO> filtrarPorLocalia(@Param("localia") String localia);
 
-    @Query("select new com.example.el_noticioso_backend.dto.NoticiaDTO(n.titulo,n.resumen,n.fechaPublicacion,n.imagenUrl,n.autor) from Noticia n order by rand() limit 5")
+    @Query("select new com.example.el_noticioso_backend.dto.NoticiaDTO(n.idNoticia,n.titulo,n.resumen,n.fechaPublicacion,n.imagenUrl,n.autor) from Noticia n order by rand() limit 5")
     List<NoticiaDTO> mostrarInicio();
+
+    Integer findByTitulo(String titulo);
 
 
 }

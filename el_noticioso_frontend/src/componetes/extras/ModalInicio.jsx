@@ -1,41 +1,52 @@
-// ModalInicio.jsx
 import { useState } from "react";
+import UsuarioServicio from "../../servicios/UsuarioServicio";
 
-export function ModalInicio() {
-
+export function ModalInicio({ onLogin }) {
+  
   const [credenciales, setCredenciales] = useState({
-    correo: "",
+    correoElectronico: "",
     contrasenia: ""
   });
 
-  function actualizar  (e) {
+  const actualizar = (e) => {
     const { name, value } = e.target;
     setCredenciales(prev => ({
       ...prev,
       [name]: value
     }));
-  }
+  };
 
-  function valores (e)  {
-    e.preventDefault()
-    console.log(credenciales)
-  }
+  const iniciarSesion = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await UsuarioServicio.iniciarSesion(credenciales);
+      const usuario = response.data;
+
+      alert("Bienvenido " + usuario.nombre);
+
+      if (onLogin) onLogin(usuario); 
+
+      document.getElementById('modal_inicio').checked = false;
+
+    } catch (error) {
+      alert(`Error al iniciar sesión: ${error.response?.data?.message || error.message}`);
+    }
+  };
 
   return (
-    <form className="space-y-4 flex flex-col">
-
-      <label>Ingresar el correo electrónico : </label>
-
+    <form className="space-y-4 flex flex-col" onSubmit={iniciarSesion}>
+      <label>Ingresar el correo electrónico:</label>
       <input
-        name = "correo"
+        name="correoElectronico"
         type="email"
-        value={credenciales.correo}
+        value={credenciales.correoElectronico}
         onChange={actualizar}
         placeholder="Correo electrónico"
         className="input w-full"
       />
-     
-      <label>Ingresar la contraseña : </label>
+
+      <label>Ingresar la contraseña:</label>
       <input
         type="password"
         name="contrasenia"
@@ -44,9 +55,10 @@ export function ModalInicio() {
         placeholder="Contraseña"
         className="input w-full"
       />
-      <br></br>
 
-      <button className="btn bg-blue-800 text-[20px] text-white" onClick={valores}>Iniciar Sesión</button>
+      <button type="submit" className="btn bg-blue-800 text-[20px] text-white">
+        Iniciar Sesión
+      </button>
     </form>
-  )
+  );
 }

@@ -1,31 +1,28 @@
 import './App.css';
-import { CabezeraComponent } from './componetes/CabezeraComponent';
-import { NavegadorComponent } from './componetes/NavegadorComponent';
-import { CuerpoComponent } from './componetes/CuerpoComponent';
-import { FooterComponent } from './componetes/FooterComponent';
-import { NoticiasPage } from './componetes/NoticiasPage'; // <- Corregido
+import { HeaderPage } from './componetes/pages/HeaderPage';
+import { NavBar } from './componetes/pages/NavbarPage';
+import { CuerpoPage } from './componetes/pages/CuerpoPage';
+import { FooterPage } from './componetes/pages/FooterPage';
 import { Routes, Route } from 'react-router-dom';
-import { TarjetasComponent } from './componetes/TarjetasComponent';
+import { UsuarioProvider} from './hooks/useUsuario';
 
 function App() {
+  
+  
+
   return (
-    <>
-      <CabezeraComponent />
-      <NavegadorComponent />
-
-      <main className="max-w-[1200px] mx-auto px-4 bg-white">
-        <TarjetasComponent />
+    <UsuarioProvider>
+      <>
+        <HeaderPage/>
+        <NavBar />
         <Routes>
-          <Route path="/" element={<CuerpoComponent />} />
-          <Route path="/:categoria" element={<NoticiasPage />} />
+          <Route path="/" element={<CuerpoPage />} />
+          <Route path="/:categoria" element={<CuerpoPage />} />
         </Routes>
-
-      </main>
-
-
-
-      <FooterComponent />
-    </>
+        <FooterPage />
+      </>
+    </UsuarioProvider>
+    
   );
 }
 

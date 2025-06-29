@@ -1,8 +1,7 @@
 
-import React from "react";
 
 export function Adicionales(titulo, imagen, descripcion, ruta) {
-
+    
     return (
 
         <a

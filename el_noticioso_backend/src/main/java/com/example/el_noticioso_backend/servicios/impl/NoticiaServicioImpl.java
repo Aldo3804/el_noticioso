@@ -29,10 +29,8 @@ public class NoticiaServicioImpl implements NoticiaServicio {
 
     @Override
     public void eliminarNoticias(NoticiaDTO noticiaDTO) {
-
         Noticia noticia =  mapeoEntidad(noticiaDTO);
         noticiaJPA.delete(noticia);
-
     }
 
 
@@ -51,19 +49,14 @@ public class NoticiaServicioImpl implements NoticiaServicio {
     public List<NoticiaDTO> mostrarInicio(){
         return noticiaJPA.mostrarInicio();
     }
+
+    @Override
+    public Integer obtenerIdNoticia(String titulo) {
+        return noticiaJPA.findByTitulo(titulo);
+    }
+
     //Mapeo de las clases NoticiaDTO y Noticia
 
-    public NoticiaDTO mapeoDTO(Noticia noticia){
-
-        return new NoticiaDTO(
-          noticia.getTitulo(),
-          noticia.getResumen(),
-          noticia.getFechaPublicacion(),
-          noticia.getImagenUrl(),
-          noticia.getAutor()
-        );
-
-    }
 
     public Noticia mapeoEntidad(NoticiaDTO noticiaDTO){
 

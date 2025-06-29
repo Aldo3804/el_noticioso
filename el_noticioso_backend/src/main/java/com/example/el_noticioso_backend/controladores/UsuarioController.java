@@ -19,6 +19,18 @@ public class UsuarioController {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    @GetMapping("/buscar/{correo}")
+    public ResponseEntity<Integer> buscarUsuario(@PathVariable String correo){
+         return ResponseEntity.ok(usuarioServicio.obtenerIdUsuario(correo));
+    }
+
+    @PutMapping("/modificar")
+    public ResponseEntity<UsuarioDTO> modificar(@RequestBody UsuarioDTO usuarioDTO){
+        usuarioServicio.modificarUsuario(usuarioDTO);
+        return ResponseEntity.ok().body(usuarioDTO);
+    }
+
+
     @PostMapping("/crear")
     public ResponseEntity<Void> crear(@RequestBody UsuarioDTO usuarioDTO) {
         usuarioServicio.agregarUsuario(usuarioDTO);
@@ -29,6 +41,16 @@ public class UsuarioController {
     public ResponseEntity<List<UsuarioDTO>> listar() {
         return ResponseEntity.ok(usuarioServicio.listarUsuarios());
     }
+
+    @PostMapping("/sesion")
+    public ResponseEntity<UsuarioDTO> iniciarSesion(@RequestBody UsuarioDTO usuarioDTO) {
+        UsuarioDTO usuarioAutenticado = usuarioServicio.iniciarSesion(
+                usuarioDTO.correoElectronico(),
+                usuarioDTO.contrasenia()
+        );
+        return ResponseEntity.ok(usuarioAutenticado);
+    }
+
 
 
 

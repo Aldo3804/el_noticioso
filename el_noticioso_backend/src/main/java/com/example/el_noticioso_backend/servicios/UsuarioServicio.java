@@ -9,8 +9,14 @@ public interface UsuarioServicio {
 
     void agregarUsuario(UsuarioDTO usuarioDTO);
 
+    void modificarUsuario(UsuarioDTO usuarioDTO);
+
     void eliminarUsuario(UsuarioDTO usuarioDTO);
 
+    UsuarioDTO iniciarSesion(String correoElectronico, String password);
+
     List<UsuarioDTO> listarUsuarios();
+
+    Integer obtenerIdUsuario(String correoElectronico);
 
 }
